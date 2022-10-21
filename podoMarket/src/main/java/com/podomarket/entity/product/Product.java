@@ -1,7 +1,10 @@
-package com.podomarket.entity;
+package com.podomarket.entity.product;
 
+import com.podomarket.entity.ProductCategory;
+import com.podomarket.entity.Status;
+import com.podomarket.entity.region.ActiveRegion;
+import com.podomarket.entity.user.Users;
 import com.podomarket.util.TimeStamped;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -10,7 +13,6 @@ import javax.persistence.*;
 @Entity
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
 public class Product extends TimeStamped {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_id")
@@ -23,8 +25,8 @@ public class Product extends TimeStamped {
     private String content;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn()
+    private Users user;
 
     private String imgUrl;
 
@@ -34,5 +36,11 @@ public class Product extends TimeStamped {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    private String region;
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private ProductCategory productCategory;
+
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private ActiveRegion region;
 }
