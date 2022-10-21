@@ -1,6 +1,6 @@
 package com.podomarket.entity;
 
-import com.example.podoMarket.util.TimeStamped;
+import com.podomarket.util.TimeStamped;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
