@@ -1,7 +1,7 @@
 package com.podomarket.jwt.security;
 
 import com.podomarket.dto.TokenDto;
-import com.podomarket.entity.Users;
+import com.podomarket.entity.user.Users;
 import com.podomarket.user.repository.UserRepository;
 import com.podomarket.user.service.UserDetailsImpl;
 import io.jsonwebtoken.*;

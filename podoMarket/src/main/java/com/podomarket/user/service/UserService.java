@@ -7,7 +7,7 @@ import com.podomarket.dto.request.UserRequestDto;
 import com.podomarket.dto.response.ResponseDto;
 import com.podomarket.entity.Authority;
 import com.podomarket.entity.RefreshToken;
-import com.podomarket.entity.Users;
+import com.podomarket.entity.user.Users;
 import com.podomarket.jwt.repository.RefreshTokenRepository;
 import com.podomarket.jwt.security.JwtFilter;
 import com.podomarket.jwt.security.TokenProvider;
@@ -106,5 +106,9 @@ public class UserService {
         refreshTokenRepository.save(newRefreshToken);
 
         return tokenDto;
+    }
+
+    public void kakaoLogin(String code) {
+
     }
 }

@@ -1,6 +1,6 @@
 package com.podomarket.dto.response;
 
-import com.podomarket.entity.Users;
+import com.podomarket.entity.user.Users;
 
 public class UserResponseDto {
     private Long id;

@@ -1,7 +1,5 @@
 package com.podomarket.config;
 
-
-
 import com.podomarket.exception.JwtAccessDeniedHandler;
 import com.podomarket.jwt.security.JwtAuthenticationEntryPoint;
 import com.podomarket.jwt.security.TokenProvider;
@@ -70,6 +68,7 @@ public class SecurityConfig{
                 .and()
                 .authorizeRequests()
                 .antMatchers("/user/**").permitAll()
+                .antMatchers("/index").permitAll()
                 .antMatchers(HttpMethod.POST).authenticated()
                 .antMatchers(HttpMethod.DELETE).authenticated()
                 .antMatchers(HttpMethod.PUT).authenticated()

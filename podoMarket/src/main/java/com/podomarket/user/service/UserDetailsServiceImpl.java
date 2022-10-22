@@ -2,7 +2,7 @@ package com.podomarket.user.service;
 
 
 
-import com.podomarket.entity.Users;
+import com.podomarket.entity.user.Users;
 import com.podomarket.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 
