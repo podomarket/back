@@ -68,12 +68,10 @@ public class SecurityConfig{
                 .and()
                 .authorizeRequests()
                 .antMatchers("/user/**").permitAll()
-                .antMatchers("/index").permitAll()
                 .antMatchers(HttpMethod.POST).authenticated()
                 .antMatchers(HttpMethod.DELETE).authenticated()
                 .antMatchers(HttpMethod.PUT).authenticated()
                 .antMatchers("/mypage/**").authenticated()
-                .antMatchers("/product/**").authenticated()
                 .anyRequest()
                 .permitAll()
 
