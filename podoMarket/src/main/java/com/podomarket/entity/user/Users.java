@@ -3,6 +3,7 @@ package com.podomarket.entity.user;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.podomarket.entity.Authority;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -10,32 +11,33 @@ import javax.persistence.*;
 
 @Entity
 @Getter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Users {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false)
     private Long id;
 
-    @Column(nullable = false)
     private String userId;
-
-    @Column(nullable = false)
     private String username;
-
-    @Column(nullable = false)
     private String email;
 
     @JsonIgnore
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false)
     private String phoneNum;
 
-//    @JsonIgnore
-//    @Enumerated(EnumType.STRING)
-//    private Authority authority;
+    @JsonIgnore
+    @Enumerated(EnumType.STRING)
+    private Authority authority;
+
+    public Users(String username, String encodedPassword, String email, Authority role) {
+        this.username = username;
+        this.password = encodedPassword;
+        this.email = email;
+        this.authority = role;
+    }
 }
