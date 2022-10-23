@@ -21,6 +21,10 @@ public class ProductController {
     public ResponseDto<?> allProduct() {
         return productService.getAllProduct();
     }
+    @GetMapping("/{productId}")
+    public ResponseDto<?> theProduct(@PathVariable Long productId){
+        return productService.getProduct(productId);
+    }
 
     @PostMapping
     public ResponseDto<?> Posting(@RequestBody ProductRequestDto productRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
