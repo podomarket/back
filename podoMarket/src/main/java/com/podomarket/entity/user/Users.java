@@ -37,6 +37,7 @@ public class Users {
     @Enumerated(EnumType.STRING)
     private Authority authority;
 
+    //Kakao login
     public Users(String username, String encodedPassword, String email, Authority role, Long kakaoId) {
         this.username = username;
         this.password = encodedPassword;

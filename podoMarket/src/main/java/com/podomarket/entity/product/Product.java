@@ -31,36 +31,21 @@ public class Product extends TimeStamped {
     @JoinColumn(name = "users_id")
     private Users user;
 
-    private String imgUrl;
-
-    @Column(nullable = false)
-    private Long price;
-
     @Enumerated(EnumType.STRING)
     private Status status;
-
-    // a b c
-
-//    @ManyToOne
-//    @JoinColumn(nullable = false)
-//    private ProductCategory productCategory;
 
 
     public Product(ProductRequestDto productRequestDto, UserDetailsImpl userDetails) {
         this.title = productRequestDto.getTitle();
         this.content = productRequestDto.getContent();
         this.user = userDetails.getUser();
-        this.price = productRequestDto.getPrice();
-        this.imgUrl = productRequestDto.getImgUrl();
         this.status = CONTINUE;
     }
 
     public void update(ProductRequestDto productRequestDto, UserDetailsImpl userDetails) {
         this.title = productRequestDto.getTitle();
-        this.imgUrl = productRequestDto.getImgUrl();
         this.content = productRequestDto.getContent();
         this.user = userDetails.getUser();
-        this.price = productRequestDto.getPrice();
         this.status = CONTINUE;
     }
 }
