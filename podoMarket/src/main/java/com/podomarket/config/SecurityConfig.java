@@ -18,6 +18,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -29,17 +30,18 @@ public class SecurityConfig{
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
 
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     // h2 database 테스트가 원활하도록 관련 API 들은 전부 무시
-    @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
-        return  (web) -> web.ignoring()
-                .antMatchers("/h2-console/**", "/favicon.ico");
-    }
+//    @Bean
+//    public WebSecurityCustomizer webSecurityCustomizer() {
+//        return  (web) -> web.ignoring()
+//                .antMatchers("/h2-console/**", "/favicon.ico");
+//    }
 
     @Bean
     @Order(SecurityProperties.BASIC_AUTH_ORDER)

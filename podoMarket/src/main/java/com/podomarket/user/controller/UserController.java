@@ -6,23 +6,25 @@ import com.podomarket.dto.request.UserRequestDto;
 import com.podomarket.dto.response.ResponseDto;
 import com.podomarket.user.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/user")
+@RequestMapping(value ="/user", consumes = {"text/plain", "application/*"})
 public class UserController {
 
     private final UserService userService;
 
-    @PostMapping("/signup")
+
+    @PostMapping(value = "/signup", consumes = {"text/plain", "application/*"})
     public ResponseDto<?> signup(@RequestBody UserRequestDto userRequestDto) {
         return userService.signup(userRequestDto);
     }
 
-    @PostMapping("/login")
+    @PostMapping(value = "/login", consumes = {"text/plain", "application/*"})
     public ResponseDto<?> login(@RequestBody UserRequestDto userRequestDto, HttpServletResponse response) {
         return userService.login(userRequestDto, response);
     }

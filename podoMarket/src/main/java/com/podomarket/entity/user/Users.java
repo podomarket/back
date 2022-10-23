@@ -20,8 +20,9 @@ public class Users {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String userId;
-    private String username;
+    private String userId; // lcy12354
+    private String username; //
+    @Column(nullable = false)
     private String email;
 
     @JsonIgnore
@@ -30,14 +31,17 @@ public class Users {
 
     private String phoneNum;
 
+    private Long kakaoId;
+
     @JsonIgnore
     @Enumerated(EnumType.STRING)
     private Authority authority;
 
-    public Users(String username, String encodedPassword, String email, Authority role) {
+    public Users(String username, String encodedPassword, String email, Authority role, Long kakaoId) {
         this.username = username;
         this.password = encodedPassword;
         this.email = email;
         this.authority = role;
+        this.kakaoId = kakaoId;
     }
 }

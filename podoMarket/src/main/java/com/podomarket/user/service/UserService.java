@@ -43,9 +43,6 @@ public class UserService {
         if (userRepository.existsByUserId(userRequestDto.getUserId()))
             throw new RuntimeException("중복된 아이디입니다.");
 
-        if (!userRequestDto.getPassword().equals(userRequestDto.getPasswordConfirm()))
-            throw  new RuntimeException(("password와 passwordConfirm이 일치하지 않습니다."));
-
         Users user = new Users().builder()
                 .userId(userRequestDto.getUserId())
                 .username(userRequestDto.getUsername())

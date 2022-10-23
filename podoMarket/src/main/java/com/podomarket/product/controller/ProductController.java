@@ -16,29 +16,29 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/product")
 @RequiredArgsConstructor
 public class ProductController {
 
-    private final ProductRepository productRepository;
     private final ProductService productService;
-    @GetMapping("/product")
+    @GetMapping
     public ResponseDto<?> allProduct() {
         return productService.getAllProduct();
     }
 
-    @PostMapping("/product")
+    @PostMapping
     public ResponseDto<?> Posting(@RequestBody ProductRequestDto productRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         return productService.createProduct(productRequestDto, userDetails);
     }
 
 
-    @DeleteMapping("/product/{productId}")
+    @DeleteMapping("/{productId}")
     public ResponseDto<?> deleteProduct(@PathVariable Long productId) {
         return productService.deleteProduct(productId);
 
     }
 
-    @PutMapping("/product/{productId}")
+    @PutMapping("/{productId}")
     public TestSaveResponse updateProduct(@PathVariable Long productId, @RequestBody ProductRequestDto productRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         return productService.updateTest(productId, productRequestDto, userDetails);
     }

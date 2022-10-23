@@ -109,11 +109,13 @@ public class KakaoUserService {
         Long kakaoId = kakaoUserInfo.getId();
         Users kakaoUser = userRepository.findById(kakaoId).orElse(null);
         if (kakaoUser == null) {
-
             // email: kakao email
             try {
                 String email = kakaoUserInfo.getEmail();
                 Users sameEmailUser = userRepository.findByEmail(email).orElse(null);
+                if(sameEmailUser != null) {
+                    throw new RuntimeException("중복된 이메일입니다.");
+                }
 
                 // username: kakao nickname
                 String username = kakaoUserInfo.getNickname();
@@ -125,7 +127,7 @@ public class KakaoUserService {
                 // role: 일반 사용자
                 Authority role = Authority.ROLE_USER;
 
-                kakaoUser = new Users(username, encodedPassword, email, role);
+                kakaoUser = new Users(username, encodedPassword, email, role, kakaoId);
                 // 회원가입
                 userRepository.save(kakaoUser);
 

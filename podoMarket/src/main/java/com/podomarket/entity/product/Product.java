@@ -19,7 +19,6 @@ import static com.podomarket.entity.Status.CONTINUE;
 public class Product extends TimeStamped {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "product_id")
     private Long id;
 
     @Column(nullable = false)
@@ -29,7 +28,7 @@ public class Product extends TimeStamped {
     private String content;
 
     @ManyToOne
-    @JoinColumn()
+    @JoinColumn(name = "users_id")
     private Users user;
 
     private String imgUrl;
@@ -39,6 +38,8 @@ public class Product extends TimeStamped {
 
     @Enumerated(EnumType.STRING)
     private Status status;
+
+    // a b c
 
 //    @ManyToOne
 //    @JoinColumn(nullable = false)
@@ -52,7 +53,6 @@ public class Product extends TimeStamped {
         this.price = productRequestDto.getPrice();
         this.imgUrl = productRequestDto.getImgUrl();
         this.status = CONTINUE;
-
     }
 
     public void update(ProductRequestDto productRequestDto, UserDetailsImpl userDetails) {
