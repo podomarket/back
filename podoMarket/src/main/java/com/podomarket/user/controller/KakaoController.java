@@ -13,14 +13,14 @@ public class KakaoController {
 
     private final KakaoUserService kakaoUserService;
 
-    @GetMapping("/user/kakao/callback")
+    @GetMapping("/users/kakao/callback")
     public String kakaoLogin(@RequestParam String code) throws JsonProcessingException {
         kakaoUserService.kakaoLogin(code);
         return "redirect:/";
     }
 
-    @GetMapping("/user")
-    public String kakaoLogin22222(){
-        return "index.html";
-    }
+//    @GetMapping("/users")
+//    public String kakaoLogin22222(){
+//        return "index.html";
+//    }
 }
