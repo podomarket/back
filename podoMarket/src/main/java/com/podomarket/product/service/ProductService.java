@@ -8,6 +8,9 @@ import com.podomarket.entity.product.Products;
 import com.podomarket.product.repository.ProductRepository;
 import com.podomarket.user.service.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,12 +24,14 @@ public class ProductService {
     private final ProductRepository productRepository;
 
     public ResponseDto<?> getAllProduct(){
-        List<Products> products = productRepository.findAll();
-        List<ProductResponseDto> productResponseDtoList = new ArrayList<>();
-        for(Products product : products){
-            productResponseDtoList.add(new ProductResponseDto(product));
-        }
-        return ResponseDto.success(productResponseDtoList);
+        PageRequest pageRequest = PageRequest.of(1, 5, Sort.by(Sort.Direction.DESC, "createdAt"));
+        Slice<Products> slice = productRepository.findSliceBy(pageRequest);
+//        List<Products> products = productRepository.findAll();
+//        List<ProductResponseDto> productResponseDtoList = new ArrayList<>();
+//        for(Products product : products){
+//            productResponseDtoList.add(new ProductResponseDto(product));
+//        }
+        return ResponseDto.success(slice);
     }
 
     @Transactional
