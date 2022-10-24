@@ -1,6 +1,7 @@
 package com.podomarket.entity.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.podomarket.dto.request.UserInfoRequestDto;
 import com.podomarket.entity.Authority;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -43,5 +44,12 @@ public class Users {
         this.email = email;
         this.authority = role;
         this.kakaoId = kakaoId;
+    }
+
+    public void infoUpdate(UserInfoRequestDto userInfoRequestDto, String encodingPassword) {
+        this.username = userInfoRequestDto.getUsername();
+        this.email = userInfoRequestDto.getEmail();
+        this.password = encodingPassword;
+
     }
 }

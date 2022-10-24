@@ -18,6 +18,7 @@ public class ProductResponseDto {
     private Status status;
     private List<CommentResponseDto> commentList;
 
+
     public ProductResponseDto(Products products) {
         this.title = products.getTitle();
         this.content = products.getContent();

@@ -2,6 +2,7 @@ package com.podomarket.entity.product;
 
 import com.podomarket.dto.request.ProductRequestDto;
 import com.podomarket.entity.Comments;
+import com.podomarket.entity.Likes;
 import com.podomarket.entity.Status;
 import com.podomarket.entity.user.Users;
 import com.podomarket.user.service.UserDetailsImpl;
@@ -34,9 +35,11 @@ public class Products extends TimeStamped {
     @JoinColumn(name = "users_id")
     private Users user;
 
-    @OneToMany(mappedBy = "products")
+    @OneToMany(mappedBy = "products",cascade = CascadeType.REMOVE)
     private List<Comments> commentsList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "products",cascade = CascadeType.REMOVE)
+    private List<Likes> likesList = new ArrayList<>();
     @Enumerated(EnumType.STRING)
     private Status status;
 

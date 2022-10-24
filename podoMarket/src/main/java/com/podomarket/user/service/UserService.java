@@ -3,8 +3,10 @@ package com.podomarket.user.service;
 
 import com.podomarket.dto.TokenDto;
 import com.podomarket.dto.request.TokenRequestDto;
+import com.podomarket.dto.request.UserInfoRequestDto;
 import com.podomarket.dto.request.UserRequestDto;
 import com.podomarket.dto.response.ResponseDto;
+import com.podomarket.dto.response.UserInfoResponseDto;
 import com.podomarket.entity.Authority;
 import com.podomarket.entity.RefreshToken;
 import com.podomarket.entity.user.Users;
@@ -82,7 +84,6 @@ public class UserService {
 
         return ResponseDto.success("login successfully");
     }
-
     @Transactional
     public TokenDto reissue(TokenRequestDto tokenRequestDto) {
         if(!tokenProvider.validateToken(tokenRequestDto.getRefreshToken())) {
@@ -110,4 +111,13 @@ public class UserService {
         );
         return ResponseDto.success(user);
     }
+    @Transactional
+    public ResponseDto<?> userUpdate(UserDetailsImpl userDetails, UserInfoRequestDto userInfoRequestDto) {
+        Users user = userDetails.getUser();
+        user.infoUpdate(userInfoRequestDto,passwordEncoder.encode(userInfoRequestDto.getPassword()));
+        userRepository.save(user);
+        return ResponseDto.success(new UserInfoResponseDto(user));
+
+    }
+
 }
