@@ -14,7 +14,6 @@ public class ProductListResponseDto {
 
     public void addProduct(ProductResponseDto productResponseDto){
         productResponseDtoList.add(productResponseDto);
-
     }
 
 }

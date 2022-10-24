@@ -21,13 +21,13 @@ public class CommentController {
         return commentService.createComment(commentRequsetDto, userDetails, productId);
     }
 
-    @DeleteMapping("/comments/{commentId}")
-    public ResponseDto<?> deleteComment(@PathVariable Long commentId, @AuthenticationPrincipal UserDetailsImpl userDetails){
-        return commentService.removeComment(commentId,userDetails);
+    @DeleteMapping("/{productId}/comments/{commentId}")
+    public ResponseDto<?> deleteComment(@PathVariable Long productId,@PathVariable Long commentId, @AuthenticationPrincipal UserDetailsImpl userDetails){
+        return commentService.removeComment(productId,commentId,userDetails);
     }
 
-    @PutMapping("/comments/{commentId}")
-    public ResponseDto<?> updateComment(@PathVariable Long commentId, @RequestBody CommentRequsetDto commentRequsetDto, @AuthenticationPrincipal UserDetailsImpl userDetails){
-        return commentService.updateComment(commentId,commentRequsetDto,userDetails);
+    @PutMapping("/{productId}/comments/{commentId}")
+    public ResponseDto<?> updateComment(@PathVariable Long productId,@PathVariable Long commentId, @RequestBody CommentRequsetDto commentRequsetDto, @AuthenticationPrincipal UserDetailsImpl userDetails){
+        return commentService.updateComment(productId,commentId,commentRequsetDto,userDetails);
     }
 }

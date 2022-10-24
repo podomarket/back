@@ -20,7 +20,7 @@ public class ProductController {
         return productService.getAllProduct();
     }
 
-    @GetMapping("/products/{productId}")
+    @GetMapping(value = "/products/{productId}", produces = {"text/plain", "application/*"})
     public ResponseDto<?> theProduct(@PathVariable Long productId){
         return productService.getProduct(productId);
     }

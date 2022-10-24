@@ -36,19 +36,7 @@ public class CommentService {
     }
 
     @Transactional
-    public ResponseDto<?> readComment(Long id) {
-        Products products = productRepository.findById(id).orElseThrow(
-                () -> new IllegalArgumentException("상품 관련 글이 없습니다.")
-        );
-        List<Comments> commentsList= commentRepository.findAllByProducts(products);
-        List<CommentResponseDto> commentResponseDtoList = new ArrayList<>();
-        for(Comments comments : commentsList){
-            commentResponseDtoList.add(new CommentResponseDto(comments));
-        }return ResponseDto.success(commentResponseDtoList);
-
-    }
-    @Transactional
-    public ResponseDto<?> removeComment(Long id, UserDetailsImpl userDetails) {
+    public ResponseDto<?> removeComment(Long productId, Long id, UserDetailsImpl userDetails) {
         Comments comments = commentRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("댓글이 없습니다.")
         );
@@ -63,7 +51,7 @@ public class CommentService {
         return ResponseDto.success("성공적으로 삭제하였습니다.");
     }
     @Transactional
-    public ResponseDto<?> updateComment(Long id, CommentRequsetDto commentRequsetDto, UserDetailsImpl userDetails) {
+    public ResponseDto<?> updateComment(Long productId,Long id, CommentRequsetDto commentRequsetDto, UserDetailsImpl userDetails) {
         Comments comments = commentRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("댓글이 없습니다.")
         );

@@ -15,14 +15,16 @@ public class ProductResponseDto {
 
     private String title;
     private String content;
-    private Status status;
+    //private Status status;
     private List<CommentResponseDto> commentList;
+    private Long commentsNum;
 
     public ProductResponseDto(Products products) {
         this.title = products.getTitle();
         this.content = products.getContent();
-        this.commentList = products.getCommentsList().stream().map(CommentResponseDto::new).collect(Collectors.toList());
-        this.status = products.getStatus();
+        this.commentsNum = Long.valueOf(products.getCommentsList().stream().map(CommentResponseDto::new).collect(Collectors.toList()).size());
+        //this.status = products.getStatus();
     }
+
 
 }
