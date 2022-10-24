@@ -20,7 +20,6 @@ public class ProductService {
 
     private final ProductRepository productRepository;
 
-    @Transactional
     public ResponseDto<?> getAllProduct(){
         List<Products> products = productRepository.findAll();
         List<ProductResponseDto> productResponseDtoList = new ArrayList<>();
@@ -29,7 +28,8 @@ public class ProductService {
         }
         return ResponseDto.success(productResponseDtoList);
     }
-        @Transactional
+
+    @Transactional
     public TestSaveResponse updateTest(Long id, ProductRequestDto productRequestDto, UserDetailsImpl userDetails) {
         Products products = productRepository.findById(id).orElseThrow(
                 ()-> new IllegalArgumentException("updateTest problem")
@@ -38,13 +38,13 @@ public class ProductService {
         return new TestSaveResponse(products);
     }
 
-
     public ResponseDto<?> createProduct(ProductRequestDto productRequestDto, UserDetailsImpl userDetails) {
         Products products = new Products(productRequestDto, userDetails);
         productRepository.save(products);
         return ResponseDto.success("성공적으로 등록하셨습니다");
     }
 
+    @Transactional
     public ResponseDto<?> deleteProduct(Long productId) {
         try {
             productRepository.deleteById(productId);
@@ -54,6 +54,7 @@ public class ProductService {
         }
         return ResponseDto.success("성공적으로 삭제하였습니다.");
     }
+
     @Transactional
     public ResponseDto<?> getProduct(Long productId) {
         Products products = productRepository.findById(productId).orElseThrow(
@@ -61,6 +62,5 @@ public class ProductService {
         );
         ProductResponseDto productResponseDto = new ProductResponseDto(products);
         return ResponseDto.success(productResponseDto);
-
     }
 }

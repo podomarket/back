@@ -25,15 +25,14 @@ public class CommentService {
     private final ProductRepository productRepository;
 
     @Transactional
-    public ResponseDto<?> createComment(CommentRequsetDto commentRequsetDto, UserDetailsImpl userDetails) {
-        Products products = productRepository.findById(commentRequsetDto.getPostId()).orElseThrow(
+    public ResponseDto<?> createComment(CommentRequsetDto commentRequsetDto, UserDetailsImpl userDetails, Long postId) {
+        Products products = productRepository.findById(postId).orElseThrow(
                 () -> new IllegalArgumentException("상품 관련 글이 없습니다.")
         );
         Users user = userDetails.getUser();
-        Comments comments = new Comments(commentRequsetDto, user, products);
+        Comments comments = new Comments(commentRequsetDto, user,products);
         commentRepository.save(comments);
         return ResponseDto.success("성공적으로 등록하셨습니다.");
-
     }
 
     @Transactional

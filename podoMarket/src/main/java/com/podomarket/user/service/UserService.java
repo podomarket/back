@@ -48,7 +48,6 @@ public class UserService {
                 .username(userRequestDto.getUsername())
                 .email(userRequestDto.getEmail())
                 .password(passwordEncoder.encode(userRequestDto.getPassword()))
-                .phoneNum(userRequestDto.getPhoneNum())
                 .authority(Authority.ROLE_USER)
                 .build();
 
@@ -105,7 +104,10 @@ public class UserService {
         return tokenDto;
     }
 
-    public void kakaoLogin(String code) {
-
+    public ResponseDto<?> getUser(Long id) {
+        Users user = userRepository.findById(id).orElseThrow(() ->
+                new UsernameNotFoundException("유저를 찾을 수 없습니다.")
+        );
+        return ResponseDto.success(user);
     }
 }

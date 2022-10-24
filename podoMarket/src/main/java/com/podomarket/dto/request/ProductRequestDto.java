@@ -1,7 +1,7 @@
 package com.podomarket.dto.request;
 
-import com.podomarket.entity.Status;
 import lombok.Getter;
+
 
 @Getter
 public class ProductRequestDto {

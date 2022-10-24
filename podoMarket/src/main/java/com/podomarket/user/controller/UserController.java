@@ -27,6 +27,11 @@ public class UserController {
         return userService.login(userRequestDto, response);
     }
 
+    @GetMapping("/{userId}")
+    public ResponseDto<?> userInfo(@PathVariable("userId") Long id){
+        return userService.getUser(id);
+    }
+
     @PostMapping("/reissue")
     public ResponseDto<?> reissue(@RequestBody TokenRequestDto tokenRequestDto) {
         TokenDto tokenDto = new TokenDto();

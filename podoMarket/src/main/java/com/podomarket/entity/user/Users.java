@@ -20,16 +20,14 @@ public class Users {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String userId; // lcy12354
-    private String username; //
+    private String userId;
+    private String username;
     @Column(nullable = false)
     private String email;
 
     @JsonIgnore
     @Column(nullable = false)
     private String password;
-
-    private String phoneNum;
 
     private Long kakaoId;
 
@@ -38,7 +36,8 @@ public class Users {
     private Authority authority;
 
     //Kakao login
-    public Users(String username, String encodedPassword, String email, Authority role, Long kakaoId) {
+    public Users(String userId, String username, String encodedPassword, String email, Authority role, Long kakaoId) {
+        this.userId = userId;
         this.username = username;
         this.password = encodedPassword;
         this.email = email;

@@ -18,6 +18,5 @@ public class LikeController {
     @PostMapping("products/{productId}/like")
     public boolean addLike(@PathVariable Long productId, @AuthenticationPrincipal UserDetailsImpl userDetails){
         return likeService.addLike(productId, userDetails);
-
     }
 }

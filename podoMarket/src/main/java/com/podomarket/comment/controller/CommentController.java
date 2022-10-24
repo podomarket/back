@@ -11,29 +11,22 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/products")
 public class CommentController {
 
     private final CommentService commentService;
 
-
-    @PostMapping("/products/comments")
-    public ResponseDto<?> postComment(@RequestBody CommentRequsetDto commentRequsetDto, @AuthenticationPrincipal UserDetailsImpl userDetails){
-        return commentService.createComment(commentRequsetDto, userDetails);
+    @PostMapping("/{productId}/comments")
+    public ResponseDto<?> postComment(@PathVariable Long productId, @RequestBody CommentRequsetDto commentRequsetDto, @AuthenticationPrincipal UserDetailsImpl userDetails){
+        return commentService.createComment(commentRequsetDto, userDetails, productId);
     }
 
-
-    @GetMapping("/products/{productId}/comment/")
-    public ResponseDto<?> getComment(@PathVariable Long productId){
-        return commentService.readComment(productId);
-    }
-
-
-    @DeleteMapping("/products/comments/{commentId}")
+    @DeleteMapping("/comments/{commentId}")
     public ResponseDto<?> deleteComment(@PathVariable Long commentId, @AuthenticationPrincipal UserDetailsImpl userDetails){
         return commentService.removeComment(commentId,userDetails);
     }
 
-    @PutMapping("/products/comments/{commentId}")
+    @PutMapping("/comments/{commentId}")
     public ResponseDto<?> updateComment(@PathVariable Long commentId, @RequestBody CommentRequsetDto commentRequsetDto, @AuthenticationPrincipal UserDetailsImpl userDetails){
         return commentService.updateComment(commentId,commentRequsetDto,userDetails);
     }

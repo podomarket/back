@@ -9,36 +9,33 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
-@RequestMapping("/products")
 @RequiredArgsConstructor
 public class ProductController {
 
     private final ProductService productService;
-    @GetMapping
+    @GetMapping("/products")
     public ResponseDto<?> allProduct() {
         return productService.getAllProduct();
     }
-    @GetMapping("/{productId}")
+
+    @GetMapping("/products/{productId}")
     public ResponseDto<?> theProduct(@PathVariable Long productId){
         return productService.getProduct(productId);
     }
 
-    @PostMapping
+    @PostMapping(value = "/products", consumes = {"text/plain", "application/*"})
     public ResponseDto<?> Posting(@RequestBody ProductRequestDto productRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         return productService.createProduct(productRequestDto, userDetails);
     }
 
-
-    @DeleteMapping("/{productId}")
+    @DeleteMapping(value = "/products/{productId}", consumes = {"text/plain", "application/*"})
     public ResponseDto<?> deleteProduct(@PathVariable Long productId) {
         return productService.deleteProduct(productId);
-
     }
 
-    @PutMapping("/{productId}")
+    @PutMapping(value = "/products/{productId}",consumes = {"text/plain", "application/*"})
     public TestSaveResponse updateProduct(@PathVariable Long productId, @RequestBody ProductRequestDto productRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         return productService.updateTest(productId, productRequestDto, userDetails);
     }

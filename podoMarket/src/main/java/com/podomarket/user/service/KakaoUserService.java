@@ -54,7 +54,7 @@ public class KakaoUserService {
         MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
         body.add("grant_type", "authorization_code");
         body.add("client_id", "2d9446f9a3859a8aebc0b8a40164318d");
-        body.add("redirect_uri", "http://localhost:8080/user/kakao/callback");
+        body.add("redirect_uri", "http://localhost:3000/users/kakao/callback");
         body.add("code", code);
 
         // HTTP 요청 보내기
@@ -110,31 +110,22 @@ public class KakaoUserService {
         Users kakaoUser = userRepository.findById(kakaoId).orElse(null);
         if (kakaoUser == null) {
             // email: kakao email
-            try {
-                String email = kakaoUserInfo.getEmail();
-                Users sameEmailUser = userRepository.findByEmail(email).orElse(null);
-                if(sameEmailUser != null) {
-                    throw new RuntimeException("중복된 이메일입니다.");
-                }
+            String userId = kakaoUserInfo.getEmail();
+            String email = kakaoUserInfo.getEmail();
 
-                // username: kakao nickname
-                String username = kakaoUserInfo.getNickname();
+            // username: kakao username
+            String username = kakaoUserInfo.getNickname();
 
-                // password: random UUID
-                String password = UUID.randomUUID().toString();
-                String encodedPassword = passwordEncoder.encode(password);
+            // password: random UUID
+            String password = UUID.randomUUID().toString();
+            String encodedPassword = passwordEncoder.encode(password);
 
-                // role: 일반 사용자
-                Authority role = Authority.ROLE_USER;
+            // role: 일반 사용자
+            Authority role = Authority.ROLE_USER;
 
-                kakaoUser = new Users(username, encodedPassword, email, role, kakaoId);
-                // 회원가입
-                userRepository.save(kakaoUser);
-
-            } catch (RuntimeException r) {
-                r.printStackTrace();
-                throw r;
-            }
+            kakaoUser = new Users(userId,username, encodedPassword, email, role, kakaoId);
+            // 회원가입
+            userRepository.save(kakaoUser);
         }
         return kakaoUser;
     }

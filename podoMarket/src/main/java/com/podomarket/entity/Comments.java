@@ -25,7 +25,7 @@ public class Comments extends TimeStamped {
     private Users user;
 
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name = "users_id")
     private Products products;
 
     @Column(nullable = false)
@@ -35,7 +35,6 @@ public class Comments extends TimeStamped {
         this.content = commentRequsetDto.getContent();
         this.user = user;
         this.products = products;
-
     }
 
     public void update(CommentRequsetDto commentRequsetDto, UserDetailsImpl userDetails) {
