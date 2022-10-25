@@ -4,7 +4,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.podomarket.dto.request.KakaoUserInfoDto;
-import com.podomarket.entity.Authority;
+
+import com.podomarket.entity.user.Authority;
 import com.podomarket.entity.user.Users;
 import com.podomarket.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;

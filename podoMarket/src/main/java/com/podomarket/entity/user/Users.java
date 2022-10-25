@@ -2,12 +2,11 @@ package com.podomarket.entity.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.podomarket.dto.request.UserInfoRequestDto;
-import com.podomarket.entity.Authority;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 
 @Entity
@@ -50,6 +49,5 @@ public class Users {
         this.username = userInfoRequestDto.getUsername();
         this.email = userInfoRequestDto.getEmail();
         this.password = encodingPassword;
-
     }
 }

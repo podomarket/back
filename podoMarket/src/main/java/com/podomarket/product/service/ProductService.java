@@ -8,6 +8,7 @@ import com.podomarket.dto.response.TestSaveResponse;
 import com.podomarket.entity.product.Products;
 import com.podomarket.product.repository.ProductRepository;
 import com.podomarket.user.service.UserDetailsImpl;
+import com.podomarket.util.S3Uploader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -15,7 +16,9 @@ import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +27,8 @@ import java.util.List;
 public class ProductService {
 
     private final ProductRepository productRepository;
+
+    private final S3Uploader s3Uploader;
 
     public ResponseDto<?> getAllProduct(){
         List<Products> products = productRepository.findAll();
@@ -43,8 +48,15 @@ public class ProductService {
         return new TestSaveResponse(products);
     }
 
-    public ResponseDto<?> createProduct(ProductRequestDto productRequestDto, UserDetailsImpl userDetails) {
-        Products products = new Products(productRequestDto, userDetails);
+    public ResponseDto<?> createProduct(ProductRequestDto productRequestDto, UserDetailsImpl userDetails) throws IOException {
+
+        Products products = Products.builder()
+                .title(productRequestDto.getTitle())
+                .content(productRequestDto.getContent())
+                .imgUrl(s3Uploader.upload(productRequestDto.getFile(), "product"))
+                .user(userDetails.getUser())
+                .build();
+
         productRepository.save(products);
         return ResponseDto.success("성공적으로 등록하셨습니다");
     }

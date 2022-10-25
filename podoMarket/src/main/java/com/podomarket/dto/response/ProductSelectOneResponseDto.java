@@ -11,7 +11,6 @@ import java.util.stream.Collectors;
 @Getter
 @NoArgsConstructor
 public class ProductSelectOneResponseDto {
-
     private Long id;
     private String title;
     private String content;
@@ -23,6 +22,5 @@ public class ProductSelectOneResponseDto {
         this.content = products.getContent();
         this.commentList = products.getCommentsList().stream().map(CommentResponseDto::new).collect(Collectors.toList());
     }
-
 
 }

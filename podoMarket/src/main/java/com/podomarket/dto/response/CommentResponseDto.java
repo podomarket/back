@@ -7,10 +7,8 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class CommentResponseDto {
-
     private String content;
     private String username;
-
     private Long id;
 
     public CommentResponseDto(Comments comments){

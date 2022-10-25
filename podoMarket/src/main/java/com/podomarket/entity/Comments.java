@@ -20,11 +20,11 @@ public class Comments extends TimeStamped {
     @Id
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn
     private Users user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "users_id")
     private Products products;
 

@@ -2,13 +2,12 @@ package com.podomarket.dto.request;
 
 import lombok.Getter;
 import lombok.Setter;
-
-import java.io.File;
+import org.springframework.web.multipart.MultipartFile;
 
 @Getter
 @Setter
 public class ProductRequestDto {
     private String title;
     private String content;
-    private String imgUrl;
+    private MultipartFile file;
 }

@@ -7,6 +7,8 @@ import com.podomarket.entity.Status;
 import com.podomarket.entity.user.Users;
 import com.podomarket.user.service.UserDetailsImpl;
 import com.podomarket.util.TimeStamped;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -19,19 +21,19 @@ import static com.podomarket.entity.Status.CONTINUE;
 
 @Entity
 @Getter
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class Products extends TimeStamped {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
     private String title;
-
 
     private String content;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "users_id")
     private Users user;
 
@@ -42,7 +44,6 @@ public class Products extends TimeStamped {
     private List<Likes> likesList = new ArrayList<>();
     @Enumerated(EnumType.STRING)
     private Status status;
-
     @Column
     private String imgUrl;
 
@@ -51,9 +52,7 @@ public class Products extends TimeStamped {
         this.content = productRequestDto.getContent();
         this.user = userDetails.getUser();
         this.status = CONTINUE;
-        this.imgUrl = productRequestDto.getImgUrl();
     }
-
 
     public void update(ProductRequestDto productRequestDto, UserDetailsImpl userDetails) {
         this.title = productRequestDto.getTitle();

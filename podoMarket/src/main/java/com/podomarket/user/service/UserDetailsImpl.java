@@ -1,7 +1,8 @@
 package com.podomarket.user.service;
 
 
-import com.podomarket.entity.Authority;
+
+import com.podomarket.entity.user.Authority;
 import com.podomarket.entity.user.Users;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

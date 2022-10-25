@@ -7,6 +7,7 @@ import com.podomarket.product.service.ProductService;
 import com.podomarket.user.service.UserDetailsImpl;
 import com.podomarket.util.S3Uploader;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,8 +19,6 @@ import java.io.IOException;
 public class ProductController {
 
     private final ProductService productService;
-    private final S3Uploader s3Uploader;
-
 
     @GetMapping("/products")
     public ResponseDto<?> getProducts() {
@@ -31,23 +30,11 @@ public class ProductController {
         return productService.getProduct(productId);
     }
 
-//    @PostMapping(value = "/products", consumes = {"text/plain", "application/*"})
-//    public ResponseDto<?> Posting(@RequestBody ProductRequestDto productRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-//        return productService.createProduct(productRequestDto, userDetails);
-//    }
-
     @PostMapping("/products")
     public ResponseDto<?> Posting(
-            @RequestPart(value = "img" , required = false) MultipartFile multipartFile,
-            @RequestPart(value = "dto") ProductRequestDto productRequestDto,
+            @ModelAttribute ProductRequestDto productRequestDto,
             @AuthenticationPrincipal UserDetailsImpl userDetails
     ) throws IOException {
-        if(!multipartFile.isEmpty()) {
-            String imgUrl = s3Uploader.upload(multipartFile, "products");
-            productRequestDto.setImgUrl(imgUrl);
-        } else {
-            productRequestDto.setImgUrl(null);
-        }
         return productService.createProduct(productRequestDto, userDetails);
     }
 

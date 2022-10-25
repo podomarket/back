@@ -17,13 +17,14 @@ public class ProductResponseDto {
     private String title;
     private String content;
     private Long commentsNum;
-
+    private String imgUrl;
 
     public ProductResponseDto(Products products) {
         this.id = products.getId();
         this.title = products.getTitle();
         this.content = products.getContent();
         this.commentsNum = Long.valueOf(products.getCommentsList().stream().map(CommentResponseDto::new).collect(Collectors.toList()).size());
+        this.imgUrl = products.getImgUrl();
     }
 
 }
