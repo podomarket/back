@@ -2,12 +2,14 @@ package com.podomarket.product.service;
 
 import com.podomarket.dto.request.ProductRequestDto;
 import com.podomarket.dto.response.ProductResponseDto;
+import com.podomarket.dto.response.ProductSelectOneResponseDto;
 import com.podomarket.dto.response.ResponseDto;
 import com.podomarket.dto.response.TestSaveResponse;
 import com.podomarket.entity.product.Products;
 import com.podomarket.product.repository.ProductRepository;
 import com.podomarket.user.service.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
@@ -23,9 +25,9 @@ public class ProductService {
 
     private final ProductRepository productRepository;
 
-    public ResponseDto<?> getAllProduct(){
-        PageRequest pageRequest = PageRequest.of(1, 5, Sort.by(Sort.Direction.DESC, "createdAt"));
-        Slice<Products> slice = productRepository.findSliceBy(pageRequest);
+    public ResponseDto<?> getAllProduct(int page, int size){
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
+        Page<ProductResponseDto> slice = productRepository.findSliceBy(pageRequest);
 //        List<Products> products = productRepository.findAll();
 //        List<ProductResponseDto> productResponseDtoList = new ArrayList<>();
 //        for(Products product : products){
@@ -65,7 +67,7 @@ public class ProductService {
         Products products = productRepository.findById(productId).orElseThrow(
                 () -> new IllegalArgumentException("관련 상품 글이 없습니다.")
         );
-        ProductResponseDto productResponseDto = new ProductResponseDto(products);
+        ProductSelectOneResponseDto productResponseDto = new ProductSelectOneResponseDto(products);
         return ResponseDto.success(productResponseDto);
     }
 }

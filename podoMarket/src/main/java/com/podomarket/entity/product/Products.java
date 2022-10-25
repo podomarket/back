@@ -40,8 +40,8 @@ public class Products extends TimeStamped {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-//    @Column
-//    private String imageUrl;
+    @Column
+    private String imgUrl;
 
     public Products(ProductRequestDto productRequestDto, UserDetailsImpl userDetails) {
         this.title = productRequestDto.getTitle();
