@@ -24,10 +24,10 @@ public class Products extends TimeStamped {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+
     private String title;
 
-    @Column(nullable = false)
+
     private String content;
 
     @ManyToOne
@@ -48,6 +48,7 @@ public class Products extends TimeStamped {
         this.content = productRequestDto.getContent();
         this.user = userDetails.getUser();
         this.status = CONTINUE;
+        this.imgUrl = productRequestDto.getImgUrl();
     }
 
 

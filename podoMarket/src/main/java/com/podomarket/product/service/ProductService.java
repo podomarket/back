@@ -25,15 +25,13 @@ public class ProductService {
 
     private final ProductRepository productRepository;
 
-    public ResponseDto<?> getAllProduct(int page, int size){
-        PageRequest pageRequest = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
-        Page<ProductResponseDto> slice = productRepository.findSliceBy(pageRequest);
-//        List<Products> products = productRepository.findAll();
-//        List<ProductResponseDto> productResponseDtoList = new ArrayList<>();
-//        for(Products product : products){
-//            productResponseDtoList.add(new ProductResponseDto(product));
-//        }
-        return ResponseDto.success(slice);
+    public ResponseDto<?> getAllProduct(){
+        List<Products> products = productRepository.findAll();
+        List<ProductResponseDto> productResponseDtoList = new ArrayList<>();
+        for(Products product : products){
+            productResponseDtoList.add(new ProductResponseDto(product));
+        }
+        return ResponseDto.success(productResponseDtoList);
     }
 
     @Transactional

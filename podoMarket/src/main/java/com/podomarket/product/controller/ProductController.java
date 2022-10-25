@@ -23,14 +23,9 @@ public class ProductController {
 
 
     @GetMapping("/products")
-    public ResponseDto<?> getProducts(
-            @RequestParam("page") int page,
-            @RequestParam("size") int size
-    ) {
-        page = page - 1;
-        return productService.getAllProduct(page, size);
+    public ResponseDto<?> getProducts() {
+        return productService.getAllProduct();
     }
-
 
     @GetMapping(value = "/products/{productId}")
     public ResponseDto<?> theProduct(@PathVariable Long productId){
@@ -44,8 +39,8 @@ public class ProductController {
 
     @PostMapping("/products")
     public ResponseDto<?> Posting(
-            @RequestPart(required = false) MultipartFile multipartFile,
-            @RequestBody ProductRequestDto productRequestDto,
+            @RequestPart(value = "img" , required = false) MultipartFile multipartFile,
+            @RequestPart(value = "dto") ProductRequestDto productRequestDto,
             @AuthenticationPrincipal UserDetailsImpl userDetails
     ) throws IOException {
         if(!multipartFile.isEmpty()) {

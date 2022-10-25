@@ -12,11 +12,13 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class ProductSelectOneResponseDto {
 
+    private Long id;
     private String title;
     private String content;
     private List<CommentResponseDto> commentList;
 
     public ProductSelectOneResponseDto(Products products) {
+        this.id = products.getId();
         this.title = products.getTitle();
         this.content = products.getContent();
         this.commentList = products.getCommentsList().stream().map(CommentResponseDto::new).collect(Collectors.toList());
