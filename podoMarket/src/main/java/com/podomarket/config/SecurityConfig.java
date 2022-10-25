@@ -37,13 +37,6 @@ public class SecurityConfig{
         return new BCryptPasswordEncoder();
     }
 
-    // h2 database 테스트가 원활하도록 관련 API 들은 전부 무시
-//    @Bean
-//    public WebSecurityCustomizer webSecurityCustomizer() {
-//        return  (web) -> web.ignoring()
-//                .antMatchers("/h2-console/**", "/favicon.ico");
-//    }
-
     @Bean
     @Order(SecurityProperties.BASIC_AUTH_ORDER)
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -72,7 +65,6 @@ public class SecurityConfig{
                 .and()
                 .authorizeRequests()
                 .antMatchers("/users/**").permitAll()
-                .antMatchers("/products").permitAll()
                 .antMatchers(HttpMethod.POST).authenticated()
                 .antMatchers(HttpMethod.DELETE).authenticated()
                 .antMatchers(HttpMethod.PUT).authenticated()

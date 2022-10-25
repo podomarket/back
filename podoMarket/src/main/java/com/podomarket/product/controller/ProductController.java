@@ -31,11 +31,6 @@ public class ProductController {
         return productService.getProduct(productId);
     }
 
-//    @PostMapping(value = "/products", consumes = {"text/plain", "application/*"})
-//    public ResponseDto<?> Posting(@RequestBody ProductRequestDto productRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-//        return productService.createProduct(productRequestDto, userDetails);
-//    }
-
     @PostMapping("/products")
     public ResponseDto<?> Posting(
             @RequestPart(value = "img" , required = false) MultipartFile multipartFile,
