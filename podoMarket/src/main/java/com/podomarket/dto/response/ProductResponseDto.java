@@ -17,6 +17,7 @@ public class ProductResponseDto {
     private String content;
     private Long commentsNum;
 
+
     public ProductResponseDto(Products products) {
         this.title = products.getTitle();
         this.content = products.getContent();
