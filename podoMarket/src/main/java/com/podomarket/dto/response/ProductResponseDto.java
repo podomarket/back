@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,9 +23,9 @@ public class ProductResponseDto {
     private String imgUrl;
     private Long price;
 
-    private LocalDateTime createdAt;
+    private Long createdAt;
 
-    private LocalDateTime modifiedAt;
+    private Long modifiedAt;
 
 
     public ProductResponseDto(Products products) {
@@ -34,8 +35,8 @@ public class ProductResponseDto {
         this.commentsNum = Long.valueOf(products.getCommentsList().stream().map(CommentResponseDto::new).collect(Collectors.toList()).size());
         this.imgUrl = products.getImgUrl();
         this.price = products.getPrice();
-        this.createdAt = products.getCreatedAt();
-        this.modifiedAt = products.getModifiedAt();
+        this.createdAt = products.getCreatedAt().getTime();
+        this.modifiedAt = products.getModifiedAt().getTime();
         this.userId = products.getUser().getUserId();
     }
 

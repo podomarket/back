@@ -9,6 +9,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Getter
 @MappedSuperclass
@@ -17,8 +18,8 @@ import java.time.LocalDateTime;
 public class TimeStamped {
 
     @CreatedDate
-    private LocalDateTime createdAt;
+    private Date createdAt;
 
     @LastModifiedDate
-    private LocalDateTime modifiedAt;
+    private Date modifiedAt;
 }

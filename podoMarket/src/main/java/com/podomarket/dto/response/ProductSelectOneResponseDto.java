@@ -2,10 +2,12 @@ package com.podomarket.dto.response;
 
 
 import com.podomarket.entity.product.Products;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,9 +22,9 @@ public class ProductSelectOneResponseDto {
     private Long price;
     private List<CommentResponseDto> commentList;
 
-    private LocalDateTime createdAt;
+    private Date createdAt;
 
-    private LocalDateTime modifiedAt;
+    private Date modifiedAt;
 
     public ProductSelectOneResponseDto(Products products) {
         this.id = products.getId();
