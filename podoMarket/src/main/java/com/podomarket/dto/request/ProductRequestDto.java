@@ -9,5 +9,6 @@ import org.springframework.web.multipart.MultipartFile;
 public class ProductRequestDto {
     private String title;
     private String content;
+    private Long price;
     private MultipartFile file;
 }

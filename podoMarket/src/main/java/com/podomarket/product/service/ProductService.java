@@ -4,19 +4,13 @@ import com.podomarket.dto.request.ProductRequestDto;
 import com.podomarket.dto.response.ProductResponseDto;
 import com.podomarket.dto.response.ProductSelectOneResponseDto;
 import com.podomarket.dto.response.ResponseDto;
-import com.podomarket.dto.response.TestSaveResponse;
 import com.podomarket.entity.product.Products;
 import com.podomarket.product.repository.ProductRepository;
 import com.podomarket.user.service.UserDetailsImpl;
 import com.podomarket.util.S3Uploader;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Slice;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -40,12 +34,23 @@ public class ProductService {
     }
 
     @Transactional
-    public TestSaveResponse updateTest(Long id, ProductRequestDto productRequestDto, UserDetailsImpl userDetails) {
-        Products products = productRepository.findById(id).orElseThrow(
-                ()-> new IllegalArgumentException("updateTest problem")
+    public ResponseDto<?> update(Long id, ProductRequestDto productRequestDto, UserDetailsImpl userDetails) throws IOException {
+        Products product = productRepository.findById(id).orElseThrow(
+                () -> new IllegalStateException("존재하지 않는 데이터입니다.")
         );
-        products.update(productRequestDto, userDetails);
-        return new TestSaveResponse(products);
+
+        Products products = Products.builder()
+                .id(product.getId())
+                .title(productRequestDto.getTitle())
+                .content(productRequestDto.getContent())
+                .imgUrl(s3Uploader.upload(productRequestDto.getFile(), "product"))
+                .user(userDetails.getUser())
+                .price(productRequestDto.getPrice())
+                .build();
+
+        productRepository.save(products);
+
+        return ResponseDto.success("업데이트 성공");
     }
 
     public ResponseDto<?> createProduct(ProductRequestDto productRequestDto, UserDetailsImpl userDetails) throws IOException {
@@ -55,6 +60,7 @@ public class ProductService {
                 .content(productRequestDto.getContent())
                 .imgUrl(s3Uploader.upload(productRequestDto.getFile(), "product"))
                 .user(userDetails.getUser())
+                .price(productRequestDto.getPrice())
                 .build();
 
         productRepository.save(products);
@@ -62,14 +68,17 @@ public class ProductService {
     }
 
     @Transactional
-    public ResponseDto<?> deleteProduct(Long productId) {
-        try {
+    public ResponseDto<?> deleteProduct(Long productId, UserDetailsImpl userDetails) {
+        Products findProduct = productRepository.findById(productId).orElseThrow(
+                () -> new IllegalStateException("존재하지 않는 데이터입니다.")
+        );
+
+        if(userDetails.getUser().getUserId().equals(findProduct.getUser().getUserId())) {
             productRepository.deleteById(productId);
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new IllegalStateException("존재하지 않는 데이터입니다.");
+            return ResponseDto.success("성공적으로 삭제하였습니다.");
+        } else {
+            return ResponseDto.fail("권한없음","권한이 없어요.");
         }
-        return ResponseDto.success("성공적으로 삭제하였습니다.");
     }
 
     @Transactional

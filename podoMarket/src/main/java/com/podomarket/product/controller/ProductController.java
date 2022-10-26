@@ -39,13 +39,15 @@ public class ProductController {
     }
 
     @DeleteMapping(value = "/products/{productId}", consumes = {"text/plain", "application/*"})
-    public ResponseDto<?> deleteProduct(@PathVariable Long productId) {
-        return productService.deleteProduct(productId);
+    public ResponseDto<?> deleteProduct(@PathVariable Long productId, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        return productService.deleteProduct(productId, userDetails);
     }
 
-    @PutMapping(value = "/products/{productId}",consumes = {"text/plain", "application/*"})
-    public TestSaveResponse updateProduct(@PathVariable Long productId, @RequestBody ProductRequestDto productRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        return productService.updateTest(productId, productRequestDto, userDetails);
+    @PutMapping(value = "/products/{productId}")
+    public ResponseDto<?> updateProduct(
+            @PathVariable Long productId,
+            @ModelAttribute ProductRequestDto productRequestDto,
+            @AuthenticationPrincipal UserDetailsImpl userDetails) throws IOException {
+        return productService.update(productId, productRequestDto, userDetails);
     }
-
 }

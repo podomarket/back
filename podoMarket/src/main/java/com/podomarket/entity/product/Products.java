@@ -47,14 +47,9 @@ public class Products extends TimeStamped {
     @Column
     private String imgUrl;
 
-    public Products(ProductRequestDto productRequestDto, UserDetailsImpl userDetails) {
-        this.title = productRequestDto.getTitle();
-        this.content = productRequestDto.getContent();
-        this.user = userDetails.getUser();
-        this.status = CONTINUE;
-    }
+    private Long price;
 
-    public void update(ProductRequestDto productRequestDto, UserDetailsImpl userDetails) {
+    public Products(ProductRequestDto productRequestDto, UserDetailsImpl userDetails) {
         this.title = productRequestDto.getTitle();
         this.content = productRequestDto.getContent();
         this.user = userDetails.getUser();

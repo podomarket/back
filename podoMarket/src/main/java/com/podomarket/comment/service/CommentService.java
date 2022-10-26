@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -37,6 +38,10 @@ public class CommentService {
 
     @Transactional
     public ResponseDto<?> removeComment(Long productId, Long id, UserDetailsImpl userDetails) {
+        Products product = productRepository.findById(productId).orElseThrow(
+                () -> new IllegalArgumentException("상품 관련 글이 없습니다.")
+        );
+
         Comments comments = commentRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("댓글이 없습니다.")
         );
@@ -52,6 +57,10 @@ public class CommentService {
     }
     @Transactional
     public ResponseDto<?> updateComment(Long productId,Long id, CommentRequsetDto commentRequsetDto, UserDetailsImpl userDetails) {
+        Products product = productRepository.findById(productId).orElseThrow(
+                () -> new IllegalArgumentException("상품 관련 글이 없습니다.")
+        );
+
         Comments comments = commentRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("댓글이 없습니다.")
         );
