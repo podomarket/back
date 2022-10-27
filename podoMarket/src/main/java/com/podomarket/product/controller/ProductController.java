@@ -5,12 +5,9 @@ import com.podomarket.dto.response.ResponseDto;
 import com.podomarket.dto.response.TestSaveResponse;
 import com.podomarket.product.service.ProductService;
 import com.podomarket.user.service.UserDetailsImpl;
-import com.podomarket.util.S3Uploader;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.MediaType;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 

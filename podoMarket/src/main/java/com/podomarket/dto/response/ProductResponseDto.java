@@ -24,9 +24,7 @@ public class ProductResponseDto {
     private Long price;
 
     private Long createdAt;
-
     private Long modifiedAt;
-
 
     public ProductResponseDto(Products products) {
         this.id = products.getId();
