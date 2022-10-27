@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -38,6 +39,7 @@ public class ProductService {
         Products product = productRepository.findById(id).orElseThrow(
                 () -> new IllegalStateException("존재하지 않는 데이터입니다.")
         );
+        Date date = new Date();
 
         Products products = Products.builder()
                 .id(product.getId())
@@ -46,6 +48,8 @@ public class ProductService {
                 .imgUrl(s3Uploader.upload(productRequestDto.getFile(), "product"))
                 .user(userDetails.getUser())
                 .price(productRequestDto.getPrice())
+                .createdAt(product.getCreatedAt())
+                .modifiedAt(date)
                 .build();
 
         productRepository.save(products);
@@ -55,12 +59,15 @@ public class ProductService {
 
     public ResponseDto<?> createProduct(ProductRequestDto productRequestDto, UserDetailsImpl userDetails) throws IOException {
 
+        Date date = new Date();
         Products products = Products.builder()
                 .title(productRequestDto.getTitle())
                 .content(productRequestDto.getContent())
                 .imgUrl(s3Uploader.upload(productRequestDto.getFile(), "product"))
                 .user(userDetails.getUser())
                 .price(productRequestDto.getPrice())
+                .createdAt(date)
+                .modifiedAt(date)
                 .build();
 
         productRepository.save(products);

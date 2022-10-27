@@ -6,15 +6,18 @@ import com.podomarket.entity.Likes;
 import com.podomarket.entity.Status;
 import com.podomarket.entity.user.Users;
 import com.podomarket.user.service.UserDetailsImpl;
-import com.podomarket.util.TimeStamped;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static com.podomarket.entity.Status.CONTINUE;
@@ -24,7 +27,7 @@ import static com.podomarket.entity.Status.CONTINUE;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Products extends TimeStamped {
+public class Products{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -48,6 +51,11 @@ public class Products extends TimeStamped {
     private String imgUrl;
 
     private Long price;
+
+
+    private Date createdAt;
+
+    private Date modifiedAt;
 
     public Products(ProductRequestDto productRequestDto, UserDetailsImpl userDetails) {
         this.title = productRequestDto.getTitle();
