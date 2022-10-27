@@ -55,7 +55,7 @@ public class UserService {
 
         userRepository.save(user);
 
-        return ResponseDto.success("Signup successfully");
+        return ResponseDto.success("회원가입 성공!");
     }
     @Transactional
     public ResponseDto<?> login(UserRequestDto userRequestDto, HttpServletResponse response) {
@@ -82,7 +82,7 @@ public class UserService {
         response.setHeader(JwtFilter.AUTHORIZATION_HEADER, JwtFilter.BEARER_PREFIX + tokenDto.getAccessToken());
         response.setHeader("Refresh-Token", tokenDto.getRefreshToken());
 
-        return ResponseDto.success("login successfully");
+        return ResponseDto.success("로그인 성공!");
     }
     @Transactional
     public TokenDto reissue(TokenRequestDto tokenRequestDto) {

@@ -13,9 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @RequiredArgsConstructor
 @Service
@@ -28,8 +26,9 @@ public class ProductService {
     public ResponseDto<?> getAllProduct(){
         List<Products> products = productRepository.findAll();
         List<ProductResponseDto> productResponseDtoList = new ArrayList<>();
-        for(Products product : products){
-            productResponseDtoList.add(new ProductResponseDto(product));
+
+        for(int i=products.size()-1;i >= 0; i--){
+            productResponseDtoList.add(new ProductResponseDto(products.get(i)));
         }
         return ResponseDto.success(productResponseDtoList);
     }

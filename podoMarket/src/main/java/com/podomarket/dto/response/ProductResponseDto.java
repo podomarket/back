@@ -32,5 +32,4 @@ public class ProductResponseDto {
         this.modifiedAt = products.getModifiedAt().getTime();
         this.userId = products.getUser().getUserId();
     }
-
 }
